@@ -1,0 +1,119 @@
+# YAML file for mass properties tools mkdocs page
+site_name: Mass Properties Tools
+site_url: http://127.0.0.1:8000/
+nav:
+    - Home: index.md
+    - About: about.md
+    - Code Reference: reference/
+    - Tutorial: tutorial.md
+    - User Guides: user_guides.md
+
+# theme: readthedocs
+# theme: 
+#     name: mkdocs
+#     nav_style: dark
+theme:
+    name: material
+    features:
+     - navigation.tabs
+     - navigation.tabs.sticky
+     - navigation.sections
+     - navigation.tracking
+     # - navigation.indexes
+     - toc.integrate
+     - navigation.top
+     - search.suggest
+     - search.highlight
+     - content.tabs.link
+     - content.code.annotation
+     - content.code.copy
+     - content.tooltips
+    language: en
+    palette:
+     - scheme: default
+       toggle:
+         icon: material/toggle-switch-off-outline
+         name: Switch to dark mode
+       primary: black
+       accent: white
+     - scheme: slate
+       toggle:
+         icon: material/toggle-switch
+         name: Switch to light mode
+       primary: black
+       accent: lime
+
+watch:
+ - src/
+ - scripts/
+ #- css/
+ #- includes/
+
+plugins:
+ - search
+ - gen-files:
+    scripts:
+     - scripts/gen_ref_pages.py
+ - literate-nav:
+    nav_file: SUMMARY.md
+ - autorefs
+ - section-index
+ - mkdocstrings:
+    enable_inventory: true
+    enabled: !ENV [ENABLE_MKDOCSTRINGS, true]
+    handlers:
+        python:
+            options:
+                show_source: true
+
+extra:
+    social:
+     - icon: fontawesome/brands/github-alt
+       link: https://github.com/
+    #  - icon: fontawesome/brands/twitter
+    #    link: https://twitter.com/
+    #  - icon: fontawesome/brands/linkedin
+    #    link: https://linkedin.com/
+
+
+# extra_css:
+#  - css/custom.css
+
+markdown_extensions:
+ - pymdownx.highlight:
+    anchor_linenums: true
+ - pymdownx.inlinehilite
+ - pymdownx.snippets
+ - admonition
+ - pymdownx.arithmatex:
+    generic: true
+ - footnotes
+ - pymdownx.details
+ - pymdownx.superfences
+ - pymdownx.mark
+ - pymdownx.emoji:
+    emoji_index: !!python/name:material.extensions.emoji.twemoji
+    emoji_generator: !!python/name:material.extensions.emoji.to_svg
+ 
+
+copyright:
+    Copyright &copy; 2024 Timothy Woodard <a href="http://www.wtfpl.net/"><img src="http://www.wtfpl.net/wp-content/uploads/2012/12/wtfpl-badge-4.png" width="80" height="15" alt="WTFPL" /></a>
+
+# dependencies:
+# pip install mkdocs-material
+# pip install mkdocstrings
+# pip install mkdocs-gen-files
+# pip install mkdocs-literate-nav
+# pip install mkdocs-section-index
+# pip install mkdocstrings-python
+# pip install mkdocs-glightbox
+# pip install mkdocs-bibtex
+
+# mkdocs new new_project_name
+# mkdocs serve
+# python -m mkdocs serve
+# python -m mkdocs build
+# python -m mkdocs --help
+
+# References:
+# https://mkdocstrings.github.io/recipes/
