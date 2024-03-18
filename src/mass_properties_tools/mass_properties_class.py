@@ -1,9 +1,9 @@
+"""Defines MassProperties class."""
 from __future__ import annotations
 import json
 import numpy as np
 from pathlib import Path
 from copy import deepcopy
-from scipy.sparse.linalg import eigs
 from mass_properties_tools.check_symmetric_poi import check_symmetric_poi
 from mass_properties_tools.check_triangle_inequality import check_triangle_inequality
 
@@ -135,14 +135,11 @@ class MassProperties:
         self._inverse_calculated = True
         
     def copy(self) -> MassProperties:
-        """
-        return a deep copy (not a shallow reference) of self
-        """
+        """Return a deep copy (not a shallow reference) of self."""
         return deepcopy(self)        
     
     def invert_products_of_inertia(self, inplace=False):
-        """Invert the signs of the products of inertia.
-        """
+        """Invert the signs of the products of inertia."""
         if inplace:
             self.i[0,1] = -self.i[0,1]
             self.i[0,2] = -self.i[0,2]
@@ -152,7 +149,7 @@ class MassProperties:
             self.i[2,1] = -self.i[2,1]
             self.poi_positive = not self.poi_positive
             self._inverse_calculated = False
-            # return self
+            return self
         else:
             mp_copy = self.copy()
             mp_copy.invert_products_of_inertia(inplace=True)
@@ -168,8 +165,7 @@ class MassProperties:
         return np.array([kx, ky, kz])
     
     def to_dict(self):
-        """Return dictionary with mass properties information.
-        """
+        """Return dictionary with mass properties information."""
         return {
             'mass': self.m,
             'i_xx': self.i[0,0],
@@ -185,35 +181,43 @@ class MassProperties:
         }
     
     def to_json(self):
-        """Return a json object with mass properties information.
-        """
+        """Return a json object with mass properties information."""
         return json.dumps(self.to_dict())
     
     def write_to_json(self, filename: str or Path):
-        """Save json data to a file.
-        """
+        """Save json data to a file."""
         with open(filename, "w") as f:
             f.write(self.to_json())
     
     @classmethod
     def from_json(cls, mp_json_file: str or Path): 
-        """Create a MassProperties object from a json file.
-        """
+        """Create a MassProperties object from a json file."""
         mp_json = json.load(open(mp_json_file))
-        
+        # TODO: finish...
         return cls()
     
     @classmethod
-    def from_params(cls):
+    def from_params(
+            cls, 
+            mass: float, 
+            i_xx: float, 
+            i_yy: float, 
+            i_zz: float, 
+            i_xy: float=0.0, 
+            i_yz: float=0.0, 
+            i_zx: float=0.0, 
+            poi_positive: bool=False,
+        ):
         """
         
         """
+        # TODO: finish...
         return cls()
     
     def __str__(self):
         return "\n".join([
             "\nMassProperties:",
-            f"mass = {self.m:1.6f}",
+            f"m = {self.m:1.6f}",
             f"i = \n{self.i}",
             f"poi_positive? = {self.poi_positive}",
         ])     

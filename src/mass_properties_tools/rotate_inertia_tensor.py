@@ -1,17 +1,17 @@
+"""Defines function to rotate an inertia tensor."""
 import numpy as np
 
 
 def rotate_inertia_tensor(i: np.ndarray, rot_mat: np.ndarray) -> np.ndarray:
-    """
-    rotates an inertia tensor
+    """Rotate an inertia tensor using a rotation matrix.
     I' = R . I . R^T
     
     Args:
-        i (np.ndarray): inertia tensor
-        rot_mat (np.ndarray): rotation matrix
+        i (np.ndarray): Inertia tensor.
+        rot_mat (np.ndarray): Rotation matrix.
     
     Returns:
-        np.ndarray: rotated inertia tensor
+        np.ndarray: Rotated inertia tensor.
     """
     return rot_mat @ i @ np.transpose(rot_mat)
 

@@ -1,29 +1,34 @@
-import numpy as np
+"""Defines parallel axis theorem function.
 
-
-def parallel_axis_theorem(i: np.ndarray, r: np.ndarray, m: float) -> np.ndarray:
-    """Single Axis Parallel Axis Theorem:
+Theory:
+Single Axis Parallel Axis Theorem:
     I = transformed inertia to a new axis
     I_cm = inertia at center of mass
     m = mass
     d = distance from center of mass
     I = I_cm + m*d**2
     
-    Generalized Tensor Parallel Axis Theorem:
+Generalized Tensor Parallel Axis Theorem:
     J = I + m * [(R * R) * I3x3 - outer_product(R, R)]
     J = transformed inertia tensor about a new point
     m = mass
     I = inertia tensor about center of mass
     R = displacement vector from center of mass to new point
     I3x3 = 3x3 identity matrix
+"""
+import numpy as np
+
+
+def parallel_axis_theorem(i: np.ndarray, r: np.ndarray, m: float) -> np.ndarray:
+    """Parallel axis theorem to change reference point for an inertia tensor.
     
     Args:
-        i (np.ndarray): original inertia tensor at original point
-        r (np.ndarray): displacement vector from original point to new point
-        m (float): mass
+        i (np.ndarray): Original inertia tensor at original point.
+        r (np.ndarray): Displacement vector from original point to new point.
+        m (float): Mass associated with the inertia.
     
     Returns:
-        np.ndarray: i_trans, transformed inertia tensor at new point
+        np.ndarray: Inertia tensor at new point.
     """
     i_trans = i + m * (np.dot(r, r) * np.identity(3) - np.outer(r, r))
     return i_trans

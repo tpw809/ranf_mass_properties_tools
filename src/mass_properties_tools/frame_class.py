@@ -172,38 +172,31 @@ class Frame:
         else:
             return self.rotation_global.apply(np.array([0.0, 0.0, 1.0]))
     
-    # @property
-    # def rot_mat(self):
-    #     """
-    #     rotation matrix
-    #     """
-    #     return self.rotation.as_matrix()
+    @property
+    def rot_mat(self) -> np.ndarray:
+        """rotation matrix"""
+        return self.rotation.as_matrix()
     
-    # @property
-    # def q(self):
-    #     """
-    #     rotation quaternion
-    #     [v, w]
-    #     [x, y, z, w]
-    #     """
-    #     return self.rotation.as_quat()
+    @property
+    def q(self) -> np.ndarray:
+        """rotation quaternion
+        [v, w]
+        [x, y, z, w]
+        """
+        return self.rotation.as_quat()
 
-    # @property
-    # def rot_mat_global(self):
-    #     """
-    #     global rotation matrix
-    #     """
-    #     return self.rotation_global.as_matrix()
+    @property
+    def rot_mat_global(self) -> np.ndarray:
+        """global rotation matrix"""
+        return self.rotation_global.as_matrix()
     
-    # @property
-    # def q_global(self):
-    #     """
-    #     global rotation quaternion
-    #     [v, w]
-    #     [x, y, z, w]
-    #     """
-    #     return self.rotation_global.as_quat()
-
+    @property
+    def q_global(self) -> np.ndarray:
+        """global rotation quaternion
+        [v, w]
+        [x, y, z, w]
+        """
+        return self.rotation_global.as_quat()
 
     def set_pos_rel_to(
             self, 
@@ -214,7 +207,6 @@ class Frame:
         set position based on position relative to rel_to_frame
         (not switching local reference frame, so expressed in frame = self.reference_frame)
         """
-        # TODO: check this:
         ref_pos = get_relative_position(
             to_frame=relative_to_frame, 
             from_frame=self.reference_frame, 
@@ -230,6 +222,7 @@ class Frame:
         ):
         """
         set rotation based on rotation relative to rel_to_frame
+        (not switching local reference frame, so expressed in frame = self.reference_frame)
         """
         self.rotation = self.reference_frame.rotation_global.inv() * relative_to_frame.rotation_global * rotation
 
@@ -280,30 +273,30 @@ class Frame:
                 reference_frame=reference_frame,
             )
     
-    def apply_rotation(
-            self, 
-            rotation: Rotation, 
-            inplace: bool=True,
-        ):
-        """
-        apply a rotation to this frame
-        rot = rotation being applied
-        inplace = change this object or return a new object?
-        """
-        # pre or post multiply?
-        # TODO: test pre or post multiply???
-        # new_rot = rot * self.rotation
-        new_rot = self.rotation * rotation
-        print(f"\nApplying a Rotation to Frame {self.name}:")
-        print(f"Original rot: \n{self.rotation.as_matrix()}")
-        print(f"Applied rot: \n{rotation.as_matrix()}")
-        print(f"New rot: \n{new_rot.as_matrix()}")
-        if inplace:
-            self.rotation = new_rot
-        else:
-            frame_copy = self.copy()
-            frame_copy.rotation = new_rot
-            return frame_copy
+    # def apply_rotation(
+    #         self, 
+    #         rotation: Rotation, 
+    #         inplace: bool=True,
+    #     ):
+    #     """
+    #     apply a rotation to this frame
+    #     rot = rotation being applied
+    #     inplace = change this object or return a new object?
+    #     """
+    #     # pre or post multiply?
+    #     # TODO: test pre or post multiply???
+    #     # new_rot = rot * self.rotation
+    #     new_rot = self.rotation * rotation
+    #     print(f"\nApplying a Rotation to Frame {self.name}:")
+    #     print(f"Original rot: \n{self.rotation.as_matrix()}")
+    #     print(f"Applied rot: \n{rotation.as_matrix()}")
+    #     print(f"New rot: \n{new_rot.as_matrix()}")
+    #     if inplace:
+    #         self.rotation = new_rot
+    #     else:
+    #         frame_copy = self.copy()
+    #         frame_copy.rotation = new_rot
+    #         return frame_copy
 
     # def apply_translation(
     #         self, 
@@ -589,8 +582,8 @@ def main() -> None:
     
     print(frame4)
 
-    frame4.apply_rotation(rot)
-    print(f"\nframe4.rot_mat = \n{frame4.rotation.as_matrix()}\n")
+    # frame4.apply_rotation(rot)
+    # print(f"\nframe4.rot_mat = \n{frame4.rotation.as_matrix()}\n")
 
     print("frame4 unit vectors:")
     print(frame4.x_hat)
@@ -674,7 +667,7 @@ def main() -> None:
         degrees=False,
     )
     
-    frame1.apply_rotation(rot1)
+    # frame1.apply_rotation(rot1)
 
     plt.figure()
     ground_frame.plot_xy(color='k')
@@ -692,7 +685,7 @@ def main() -> None:
         degrees=False,
     )
     
-    frame2.apply_rotation(rot2)
+    # frame2.apply_rotation(rot2)
 
     plt.figure()
     ground_frame.plot_xy(color='k')

@@ -1,3 +1,4 @@
+"""Defines MassiveBody class."""
 from __future__ import annotations
 import json
 import numpy as np
@@ -12,6 +13,7 @@ from mass_properties_tools.mass_properties_class import MassProperties
 class MassiveBody:
     """
     MassiveBody class contains mass properties and center of mass frame.
+    MassProperties are defined in the center of mass frame.
     """
     def __init__(
             self,
@@ -28,7 +30,6 @@ class MassiveBody:
     def i_global(self):
         """
         inertia tensor rotated to the global frame
-        I' = R@I@R^T
         """
         return self.cm.rotation_global.inv().as_matrix() @ self.mp.i @ self.cm.rotation_global.as_matrix()
     
@@ -40,13 +41,22 @@ class MassiveBody:
         return self.cm.rotation_global.inv().as_matrix() @ self.mp.i_inv @ self.cm.rotation_global.as_matrix()
 
     def change_cm_reference_frame(self, reference_frame: Frame) -> MassiveBody:
-        """
-        Change the center of mass frame reference frame.
+        """Change the center of mass frame reference frame.
         
         Args:
-            reference_frame (Frame): new reference frame
+            reference_frame (Frame): New reference frame.
+        
+        Returns:
+            MassiveBody: New MassiveBody object with updated center of mass frame reference frame.
         """
-        pass
+        new_cm_frame = self.cm.transform_to_frame(
+            reference_frame=reference_frame, 
+            inplace=False,
+            new_nameself.cm.name+'_transformed',
+        )
+        new_mb = self.copy()
+        new_mb.cm = new_cm_frame
+        return new_mb
     
     def diagonalize(self, tol: float=1.0e-9) -> MassiveBody:
         """Diagonalize the inertia tensor and rotate center of mass frame to principal axes.
