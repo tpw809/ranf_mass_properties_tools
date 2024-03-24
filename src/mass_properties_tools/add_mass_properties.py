@@ -1,3 +1,4 @@
+"""Defines add_mass_properties function."""
 import numpy as np
 
 
@@ -9,15 +10,12 @@ def combine_mass_properties(
         cm2: np.ndarray,
         i2: np.ndarray,
     ):
+    """Find new mass, center of mass, inertia for combined rigid bodies.
+    
+    Reference frame must be the same for both bodies.
+    
+    Product of inertia sign must be the same for both bodies.
     """
-    find new mass, center of mass, inertia for combined rigid bodies
-    reference frame must be the same for both bodies
-    product of inertia sign must be the same for both bodies
-    """
-    # check poi_positive:
-    
-    
-    
     # combined mass:
     m3 = m1 + m2
     
@@ -47,7 +45,7 @@ def main() -> None:
     cm2 = np.array([0.0, 0.0, 0.0])
     i2 = np.identity(3)
     
-    m3, cm3, i3 = combine_mass_properties(
+    m3, cm3, i3 = add_mass_properties(
         m1=m1,
         cm1=cm1,
         i1=i1,

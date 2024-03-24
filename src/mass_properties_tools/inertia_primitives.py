@@ -2,9 +2,11 @@ import numpy as np
 
 
 def cuboid_inertia(m: float, lx: float, ly: float, lz: float) -> np.ndarray:
-    """
-    cuboid is a solid rectangle
-    solid implies uniform density
+    """Returns inertia tensor for a solid cuboid.
+    
+    A cuboid is a solid rectangle.
+    
+    Solid implies uniform density.
     
     Args:
         m (float): mass
@@ -26,9 +28,9 @@ def cuboid_inertia(m: float, lx: float, ly: float, lz: float) -> np.ndarray:
 
 
 def sphere_inertia(m: float, r: float) -> np.ndarray:
-    """
-    solid sphere
-    solid implies uniform density
+    """Returns inertia tensor for a solid sphere.
+    
+    Solid implies uniform density.
     
     Args:
         m (float): mass
@@ -42,9 +44,9 @@ def sphere_inertia(m: float, r: float) -> np.ndarray:
 
 
 def hollow_sphere_inertia(m: float, r: float) -> np.ndarray:
-    """
-    hollow sphere has all mass concentrated
-    to outer surface
+    """Returns inertia tensor for a hollow sphere.
+    
+    A hollow sphere has all mass concentrated to outer surface.
     
     Args:
         m (float): mass
@@ -58,9 +60,9 @@ def hollow_sphere_inertia(m: float, r: float) -> np.ndarray:
 
 
 def ellipsoid_inertia(m: float, ax: float, by: float, cz: float) -> np.ndarray:
-    """
-    solid ellipsoid
-    solid implies uniform density
+    """Returns inertia tensor for a solid ellipsoid.
+    
+    Solid implies uniform density.
     
     Args:
         m (float): mass
@@ -82,10 +84,11 @@ def ellipsoid_inertia(m: float, ax: float, by: float, cz: float) -> np.ndarray:
 
 
 def cylinder_inertia(m: float, r: float, lz: float) -> np.ndarray:
-    """
-    solid cylinder
-    solid implies uniform density
-    z axis is axis of cylinder rotation
+    """Returns inertia tensor for a solid cylinder.
+    
+    Solid implies uniform density.
+    
+    Z-axis is the axis of cylinder rotation.
     
     Args:
         m (float): mass
@@ -105,8 +108,9 @@ def cylinder_inertia(m: float, r: float, lz: float) -> np.ndarray:
 
 
 def hollow_cylinder_inertia(m: float, ri: float, ro: float, lz: float) -> np.ndarray:
-    """
-    z axis is axis of cylinder rotation
+    """Returns inertia tensor for a hollow cylinder.
+    
+    Z-axis is the axis of cylinder rotation.
     
     Args:
         m (float): mass

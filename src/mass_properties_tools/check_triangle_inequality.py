@@ -1,20 +1,21 @@
+"""Defines check_triangle_inequality function."""
 import numpy as np
 from mass_properties_tools.diagonalize_inertia_tensor import diagonalize3
 
 
 def check_triangle_inequality(i: np.ndarray, tol: float=1.0e-9) -> bool:
-    """
-    check for realistic inertias:
-    not passing this implies existance of 
-    negative mass or negative density...
-    only applicable to diagonalized inertia tensor...
+    """Check for realistic inertias by evaluating the triangle inequality.
+    
+    Not passing this implies existance of negative mass or negative density.
+    
+    The check is only applicable to a diagonalized inertia tensor, so this diagonalizes before checking.
     
     Args:
-        i (np.ndarray): inertia tensor.
-        tol (float): error tolerance.
+        i (np.ndarray): Inertia tensor.
+        tol (float): Error tolerance.
     
     Returns:
-        bool: does the inertia tensor pass triangle inequality check?
+        bool: Does the inertia tensor pass triangle inequality check?
     """
     valid = True
     

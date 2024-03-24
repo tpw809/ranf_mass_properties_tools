@@ -7,8 +7,11 @@ import numpy as np
 
 def check_symmetric_poi(i: np.ndarray, tol: float=1.0e-9) -> bool:
     """Check if products of inertia (poi) for an inertia tensor are symmetric.
+    
     i[0,1] == i[1,0]
+    
     i[0,2] == i[2,0]
+    
     i[1,2] == i[2,1]
     
     Args:

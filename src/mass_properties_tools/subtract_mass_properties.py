@@ -1,7 +1,8 @@
+"""Defines subtract_mass_properties function."""
 import numpy as np
 
 
-def subtract_mass_props(
+def subtract_mass_properties(
         m1: float, 
         m2: float, 
         cm1: np.ndarray, 
@@ -9,11 +10,11 @@ def subtract_mass_props(
         i1: np.ndarray, 
         i2: np.ndarray,
     ):
-    """
-    find new mass, center of mass, inertia for combined rigid bodies
-    must be defined in the same reference frame
-    inertias defined about body center of mass
-    for m1 - m2
+    """Find new mass, center of mass, inertia for combined rigid bodies
+    
+    Must be defined in the same reference frame.
+    
+    Inertias defined about body center of mass for m1 - m2
     
     Args:
         m1 (float): mass of body 1
@@ -26,7 +27,6 @@ def subtract_mass_props(
     Returns:
         
     """
-    
     # combined mass:
     m3 = m1 - m2
     
@@ -59,7 +59,7 @@ def main() -> None:
     i2 = np.identity(3)
     
     # subtract mass properties:
-    m4, cm4, i4 = subtract_mass_props(
+    m4, cm4, i4 = subtract_mass_properties(
         m1=m3,
         m2=m2, 
         cm1=cm3,

@@ -2,8 +2,12 @@
 import numpy as np
 
 
-def rotate_inertia_tensor(i: np.ndarray, rot_mat: np.ndarray) -> np.ndarray:
+def rotate_inertia_tensor(
+        i: np.ndarray, 
+        rot_mat: np.ndarray,
+    ) -> np.ndarray:
     """Rotate an inertia tensor using a rotation matrix.
+    
     I' = R . I . R^T
     
     Args:

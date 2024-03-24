@@ -16,10 +16,6 @@ if TYPE_CHECKING:
     from scipy.spatial.transform import Rotation
 
 
-# global is the inertially grounded (fixed) reference frame 
-# local is my reference frame
-
-
 class Frame:
     """
     Coordinate system defined by a position and rotation within another reference_frame.
@@ -142,8 +138,7 @@ class Frame:
     @property
     def x_hat_global(self) -> np.ndarray:
         """
-        global x direction of this frame
-        in global reference frame
+        global x direction of this frame in global reference frame
         """
         if self.reference_frame is None:
             return self.x_hat
@@ -153,8 +148,7 @@ class Frame:
     @property
     def y_hat_global(self) -> np.ndarray:
         """
-        global y direction of this frame
-        in global reference frame
+        global y direction of this frame in global reference frame
         """
         if self.reference_frame is None:
             return self.y_hat
@@ -164,8 +158,7 @@ class Frame:
     @property
     def z_hat_global(self) -> np.ndarray:
         """
-        global z direction of this frame
-        in global reference frame
+        global z direction of this frame in global reference frame
         """
         if self.reference_frame is None:
             return self.z_hat
@@ -203,8 +196,7 @@ class Frame:
             position: np.ndarray, 
             relative_to_frame: Frame,
         ):
-        """
-        set position based on position relative to rel_to_frame
+        """Set position based on position relative to rel_to_frame
         (not switching local reference frame, so expressed in frame = self.reference_frame)
         """
         ref_pos = get_relative_position(
@@ -220,8 +212,7 @@ class Frame:
             rotation: Rotation, 
             relative_to_frame: Frame,
         ):
-        """
-        set rotation based on rotation relative to rel_to_frame
+        """Set rotation based on rotation relative to rel_to_frame
         (not switching local reference frame, so expressed in frame = self.reference_frame)
         """
         self.rotation = self.reference_frame.rotation_global.inv() * relative_to_frame.rotation_global * rotation
@@ -232,8 +223,7 @@ class Frame:
             inplace=False,
             new_name: str=None,
         ) -> Frame:
-        """
-        Create a new frame at the same global position and orientation 
+        """Create a new frame at the same global position and orientation 
         with frm as self, in the new reference_frame.
         """
         if new_name is None:
@@ -254,6 +244,8 @@ class Frame:
             )
                 
             self.reference_frame = reference_frame
+            
+            return self
         else:
             new_rotation = get_relative_rotation(
                 to_frame=self, 
@@ -266,12 +258,13 @@ class Frame:
                 expressed_in_frame=reference_frame,
             )
             
-            return Frame(
-                name=new_name,
-                position=new_position,
-                rotation=new_rotation,
-                reference_frame=reference_frame,
-            )
+            # returning a copy allows application to child classes
+            frame_copy = copy.deepcopy(self)
+            frame_copy.name = new_name
+            frame_copy.position = new_position
+            frame_copy.rotation = new_rotation
+            frame_copy.reference_frame = reference_frame
+            return frame_copy
     
     # def apply_rotation(
     #         self, 

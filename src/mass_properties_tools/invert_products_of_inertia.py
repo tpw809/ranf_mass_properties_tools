@@ -1,3 +1,4 @@
+"""Defines invert_products_of_inertia function."""
 import numpy as np
 from copy import deepcopy
 
